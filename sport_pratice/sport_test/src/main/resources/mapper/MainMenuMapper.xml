@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.sport_test.Dao.MainMenuDao">
+    <resultMap id="Menus" type="MainMenu">
+        <result column="title" property="title"/>
+        <result column="id" property="id"/>
+        <result column="path" property="path"/>
+        <collection property="sMenu" ofType="SubMenu">
+            <result column="stitle" property="title"/>
+            <result column="sid" property="id"/>
+            <result column="spath" property="path"/>
+        </collection>
+    </resultMap>
+
+    <select id="getMainMenu" resultMap="Menus">
+        select sm.id as sid,sm.title as stitle,mm.*,sm.path as spath
+        from mainmenu mm , submenu sm where mm.id = sm.mid;
+    </select>
+</mapper>
